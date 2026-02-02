@@ -13,7 +13,7 @@ pipeline {
         stage('Copy Code To Docker VM') {
             steps {
                 sh '''
-                scp -r * ubuntu@<DOCKER_VM_PUBLIC_IP>:/home/ubuntu/travel-app
+                scp -r * ubuntu@13.48.56.23:/home/ubuntu/travel-app
                 '''
             }
         }

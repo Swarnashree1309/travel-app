@@ -2,27 +2,43 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/Swarnashree1309/travel-app.git'
+                git branch: 'master',
+                    url: 'https://github.com/Swarnashree1309/travel-app.git'
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build --no-cache -t travel-app:latest .'
-            }
-        }
-
-        stage('Run Container') {
+        stage('Copy Code To Docker VM') {
             steps {
                 sh '''
-		docker stop travel-app || true
-                docker rm -f travel-app || true
-                docker run -d -p 5000:5000 --name travel-app travel-app:latest
+                scp -r * ubuntu@<DOCKER_VM_PUBLIC_IP>:/home/ubuntu/travel-app
+                '''
+            }
+        }
+
+        stage('Build Image On Docker VM') {
+            steps {
+                sh '''
+                ssh ubuntu@13.48.56.23 "
+                cd ~/travel-app &&
+                docker build -t travel-app .
+                "
+                '''
+            }
+        }
+
+        stage('Run Container On Docker VM') {
+            steps {
+                sh '''
+                ssh ubuntu@13.48.56.23 "
+                docker stop travel-app || true &&
+                docker rm travel-app || true &&
+                docker run -d -p 9090:80 --name travel-app travel-app
+                "
                 '''
             }
         }
     }
 }
-

@@ -35,7 +35,7 @@ pipeline {
                 ssh ubuntu@13.48.56.23 "
                 docker stop travel-app || true &&
                 docker rm travel-app || true &&
-                docker run -d -p 9090:80 --name travel-app travel-app
+                docker run -d -p 9090:9090 --name travel-app travel-app
                 "
                 '''
             }

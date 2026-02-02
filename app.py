@@ -3,9 +3,9 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 travel_data = {
-    "beach": ["Goa", "Maldives", "Bali"],
-    "hill": ["Ooty", "Manali", "Coorg"],
-    "city": ["Bangalore", "Mumbai", "Delhi"]
+    "beach": ["Goa", "Maldives", "Bali","Bhag"],
+    "hill": ["Ooty", "Manali", "Coorg","Himalaya"],
+    "city": ["Bangalore", "Mumbai", "Delhi","pune"]
 }
 
 @app.route("/", methods=["GET", "POST"])

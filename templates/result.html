@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Result</title>
+</head>
+<body>
+    <h3>✈ Recommended {{ choice }} destinations:</h3>
+    <ul>
+        {% for place in places %}
+            <li>{{ place }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back</a>
+</body>
+</html>
+
